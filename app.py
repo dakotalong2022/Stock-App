@@ -1,23 +1,27 @@
 import streamlit as st
 import yfinance as yf
 import pandas as pd
-import pandas_ta as ta
 
-# App title
-st.title('Stock App')
+# Set up page configuration
+st.set_page_config(page_title="Stock Data App", layout="wide")
+
+# Simple title
+st.title("Stock Data App")
 
 # User input for stock ticker
-ticker = st.text_input("Enter Stock Ticker:", "AAPL")
+ticker = st.text_input("Enter stock ticker (e.g., AAPL, GOOG):", "AAPL")
 
-# Get stock data from Yahoo Finance
-data = yf.download(ticker, period="1y", interval="1d")
+# Fetch data for the selected ticker
+@st.cache_data
+def fetch_data(ticker):
+    data = yf.download(ticker, period="7d", interval="1h")  # 7 days of data, 1 hour intervals
+    return data
 
-# Calculate technical indicators using pandas_ta
-data['SMA'] = ta.sma(data['Close'], 20)
+# Display fetched data
+if ticker:
+    data = fetch_data(ticker)
+    st.write(f"Showing data for {ticker}")
+    st.line_chart(data['Close'])
+else:
+    st.write("Please enter a stock ticker.")
 
-# Display the data
-st.write(f"Displaying data for {ticker}")
-st.dataframe(data.tail())
-
-# Display stock price chart with technical indicators
-st.line_chart(data[['Close', 'SMA']])

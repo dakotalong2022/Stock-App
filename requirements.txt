@@ -3,3 +3,4 @@ pandas==2.2.0
 pandas_ta==0.3.14b0
 streamlit==1.49.1
 yfinance==0.2.65
+sudo apt-get install python3-distutils

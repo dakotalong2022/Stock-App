@@ -1,8 +1,7 @@
-streamlit
-yfinance
-pandas
-numpy
-matplotlib
-scikit-learn
-xgboost
-tensorflow
+streamlit==1.49.1
+yfinance==0.2.65
+pandas==2.3.2
+pandas_ta==0.4.14
+matplotlib==3.10.6
+scikit-learn==1.7.1
+numpy==2.3.2
